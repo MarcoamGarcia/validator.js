@@ -83,14 +83,6 @@
       'el-GR' : /^(\+30)?((2\d{9})|(69\d{8}))$/
     };
 
-    validator.extend = function (name, fn) {
-        validator[name] = function () {
-            var args = Array.prototype.slice.call(arguments);
-            args[0] = validator.toString(args[0]);
-            return fn.apply(validator, args);
-        };
-    };
-
     //Right before exporting the validator object, pass each of the builtins
     //through extend() so that their first argument is coerced to a string
     validator.init = function () {
@@ -99,7 +91,6 @@
                     name === 'toDate' || name === 'extend' || name === 'init') {
                 continue;
             }
-            validator.extend(name, validator[name]);
         }
     };
 
